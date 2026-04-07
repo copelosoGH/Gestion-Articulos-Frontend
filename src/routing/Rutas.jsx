@@ -1,25 +1,35 @@
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
-import { Inicio } from "../pages/Inicio";
 import { Articulos } from "../pages/Articulos";
 import { Crear } from "../pages/Crear";
 import { Header } from "../components/Header";
+import { Login } from "../pages/Login";
+import { Registro } from "../pages/Registro";
+// 1. IMPORTA EL PROVIDER
+import { AuthProvider } from "../context/AuthProvider";
 
 export const Rutas = () => {
   return (
     <BrowserRouter>
-      <div className="layout">
-        <Header />
+
+      <AuthProvider>
         
-        <section className="content">
-          <Routes>
-            <Route path="/" element={<Navigate to="/inicio" />} />
-            <Route path="/inicio" element={<Inicio />} />
-            <Route path="/articulos" element={<Articulos />} />
-            <Route path="/crear-articulos" element={<Crear />} />
-            <Route path="*" element={<h1>Error 404</h1>} />
-          </Routes>
-        </section>
-      </div>
+        <div className="layout">
+          <Header />
+
+          <section className="content">
+            <Routes>
+              <Route path="/" element={<Navigate to="/articulos" />} />
+              <Route path="/articulos" element={<Articulos />} />
+              <Route path="/crear-articulos" element={<Crear />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/registro" element={<Registro />} />
+              <Route path="*" element={<h1>Error 404</h1>} />
+            </Routes>
+          </section>
+        </div>
+
+      </AuthProvider>
+
     </BrowserRouter>
   );
 };
