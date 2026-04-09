@@ -90,14 +90,22 @@ body {
   font-size: 0.95rem;
 }
 
+.user-info {
+  display: block;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
 .btn-logout {
+  font-weight: 800;
+  text-decoration: none;
   background: none;
   border: none;
   cursor: pointer;
   padding: 0.75rem 1rem;
-  text-align: left;
   width: 100%;
-  color: #ef4444 !important;
+  text-align: left;
 }
 
 /* ÁREA DE CONTENIDO */
@@ -117,39 +125,95 @@ h1 {
 .articles-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
+  gap: 2rem;
   margin-top: 2rem;
+  align-items: start; 
+}
+
+.article-item {
+  background: var(--white);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column; /* Permite alinear el botón al fondo si quieres */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #e2e8f0;
+}
+
+.article-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
 }
 
 .article-item .image-container {
   width: 100%;
-  height: 180px;
+  aspect-ratio: 16 / 9; /* Obliga a todas las imágenes a mantener la misma proporción */
+  height: 200px; /* Altura fija para consistencia visual */
   overflow: hidden;
-  border-radius: 8px;
   background-color: #e2e8f0;
-  margin-bottom: 1rem;
+  margin-bottom: 0; /* Quitamos el margen inferior para que pegue con el texto si quieres */
 }
 
 .article-item img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* Recorta la imagen para llenar el contenedor sin deformarse */
+  display: block;
+}
+
+/* CONTENEDOR DE DATOS */
+.article-item .data {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Hace que el área de texto ocupe el espacio disponible */
 }
 
 .article-item h3 {
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+  /* Truncar título si es muy largo (opcional) */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.article-item p {
+  transition: all 0.3s ease;
+  overflow: hidden;
 }
 
 .read-more {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
+  margin-top: auto; /* Empuja el botón siempre al final de la card */
+  align-self: flex-start; /* Evita que el botón se estire a todo lo ancho */
+  padding: 0.4rem 1rem;
   background-color: var(--primary);
-  color: white;
-  border: none;
-  border-radius: 6px;
+  transition: background 0.2s;
   cursor: pointer;
+  color: var(--white);
   font-weight: 600;
+}
+
+/* RESPONSIVE PARA MÓVILES */
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+  
+  .nav {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 1.5rem;
+  }
+  
+  .content {
+    padding: 1.5rem;
+  }
 }
 
 /* ANIMACIÓN DE CARGA (SKELETON LOADER) */

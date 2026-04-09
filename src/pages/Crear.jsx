@@ -9,30 +9,43 @@ export const Crear = () => {
 
   const guardarArticulo = async (e) => {
     e.preventDefault();
+    const formElement = e.target;
 
     // 1. Recoger datos del formulario
     let nuevoArticulo = formulario;
 
     // 2. Guardar artículo en el backend
     try {
-      const { data } = await axios.post(Global.url + "crear", nuevoArticulo);
+      const { data } = await axios.post(Global.url + "articulo", nuevoArticulo, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+      });
 
       if (data.status === "success") {
         setResultado("guardado");
-        
+
         // 3. Subir la imagen si existe
         const fileInput = document.querySelector("#file");
         if (fileInput.files[0]) {
           const formData = new FormData();
           formData.append("file0", fileInput.files[0]);
 
-          await axios.post(Global.url + "subir-imagen/" + data.articulo._id, formData);
+          await axios.post(Global.url + "articulo/imagen/" + data.articulo._id, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              "Authorization": `Bearer ${localStorage.getItem("token")}`
+            }
+          });
         }
+
+        formElement.reset();
+
       } else {
         setResultado("error");
+        console.error("Error al guardar el artículo:", data.message);
       }
     } catch (error) {
       setResultado("error: ", error);
+      console.error("Error al guardar el artículo:", error);
     }
   };
 
