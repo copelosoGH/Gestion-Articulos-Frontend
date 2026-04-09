@@ -37,15 +37,15 @@ export const Registro = () => {
       <form className="formulario" onSubmit={guardarUsuario}>
         <div className="form-group">
           <label>Nombre</label>
-          <input type="text" name="nombre" onChange={cambiado} required />
+          <input type="text" name="nombre" placeholder="Tu nombre completo" onChange={cambiado} required />
         </div>
         <div className="form-group">
           <label>Email</label>
-          <input type="email" name="email" onChange={cambiado} required />
+          <input type="email" name="email" placeholder="ejemplo@ejemplo.com" onChange={cambiado} required />
         </div>
         <div className="form-group">
           <label>Contraseña</label>
-          <input type="password" name="password" onChange={cambiado} required />
+          <input type="password" name="password" placeholder="Mínimo 7 caracteres" onChange={cambiado} required />
         </div>
         <input type="submit" value="Registrarse" className="btn-enviar" />
       </form>
